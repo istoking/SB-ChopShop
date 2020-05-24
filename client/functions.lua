@@ -52,7 +52,7 @@ AllowChop = function(hash, source)
 		if hash == GetHashKey(Config.ChopLow[1]) or hash == GetHashKey(Config.ChopLow[2]) or hash == GetHashKey(Config.ChopLow[3]) or hash == GetHashKey(Config.ChopLow[4]) or hash == GetHashKey(Config.ChopLow[5]) then
 			local class = 1
 			local timer = class * 1000 * multipler
-			    TriggerEvent("mythic_progressbar:client:progress", {
+			    TriggerEvent("mythic_progbar:client:progress", {
 		        name = "Chop",
 		        duration = timer,
 		        label = "Chopping Vehicle",
@@ -75,7 +75,7 @@ AllowChop = function(hash, source)
 		if hash == GetHashKey(Config.ChopMed[1]) or hash == GetHashKey(Config.ChopMed[2]) or hash == GetHashKey(Config.ChopMed[3]) or hash == GetHashKey(Config.ChopMed[4]) or hash == GetHashKey(Config.ChopMed[5]) then
 			local class = 2
 			local timer = class * 1000 * multipler
-			TriggerEvent("mythic_progressbar:client:progress", {
+			TriggerEvent("mythic_progbar:client:progress", {
 		        name = "Chop",
 		        duration = timer,
 		        label = "Chopping Vehicle",
@@ -97,7 +97,7 @@ AllowChop = function(hash, source)
 		if hash == GetHashKey(Config.ChopHigh[1]) or hash == GetHashKey(Config.ChopHigh[2]) or hash == GetHashKey(Config.ChopHigh[3]) or hash == GetHashKey(Config.ChopHigh[4]) or hash == GetHashKey(Config.ChopHigh[5]) then
 			local class = 3
 			local timer = class * 1000 * multipler
-			TriggerEvent("mythic_progressbar:client:progress", {
+			TriggerEvent("mythic_progbar:client:progress", {
 		        name = "Chop",
 		        duration = timer,
 		        label = "Chopping Vehicle",
@@ -119,7 +119,7 @@ AllowChop = function(hash, source)
 		if hash == GetHashKey(Config.ChopExtreme[1]) or hash == GetHashKey(Config.ChopExtreme[2]) or hash == GetHashKey(Config.ChopExtreme[3]) or hash == GetHashKey(Config.ChopExtreme[4]) or hash == GetHashKey(Config.ChopExtreme[5]) then
 			local class = 4
 			local timer = class * 1000 * multipler
-			TriggerEvent("mythic_progressbar:client:progress", {
+			TriggerEvent("mythic_progbar:client:progress", {
 		        name = "Chop",
 		        duration = timer,
 		        label = "Chopping Vehicle",
