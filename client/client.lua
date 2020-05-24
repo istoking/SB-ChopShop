@@ -58,8 +58,6 @@ AddEventHandler('CheckDist', function(class)
 			TriggerServerEvent('SB-ChopExtreme', source)
 			TriggerEvent('Delete')
 		end
-	else
-		TriggerEvent('DoLongHudText','Too far from chop point',2, 6000)
 	end
 end)
 
