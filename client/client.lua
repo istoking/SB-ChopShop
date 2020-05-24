@@ -12,23 +12,23 @@ Citizen.CreateThread( function()
 end)
 
 local ChopLocation = vector3(2343.53, 3052.26, 48.15)
-local source = PlayerPedId()
+local source = GetPlayerPed( -1 )
 
 
 Citizen.CreateThread(function()
-    local plyPed = PlayerPedId()
     local chopPos = vector3(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'])
     while true do
+        local ped = GetPlayerPed( -1 )
         local sleep = 200
-        local plyPos = GetEntityCoords(plyPed)
-        local distCheck = #(plyPos - chopPos)
+        local playerCoords = GetEntityCoords(PlayerPedId())
+        local distCheck =  #(vector3(ChopLocation['x'],ChopLocation['y'],ChopLocation['z']) - playerCoords)
         if distCheck <= 50 then
             sleep = 20
-            if distCheck <= 5 and IsPedInAnyVehicle(source, false) then
+            if distCheck <= 5 and IsPedInAnyVehicle(ped, false) then
                 sleep = 5
-                DrawText3Ds(chopPos.x, chopPos.y, chopPos.z, '[E] To Chop Vehicle')
+                DrawText3Ds(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'],'[E] To Chop Vehicle')
                 if IsControlJustPressed(2, 86) then
-                    local car = GetVehiclePedIsIn(source, false)
+                    local car = GetVehiclePedIsIn(ped, false)
                     local hash = GetEntityModel(car)
                     AllowChop(hash)
                 end
@@ -37,6 +37,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(sleep)
     end
 end)
+
 
 RegisterNetEvent('CheckDist')
 AddEventHandler('CheckDist', function(class)
