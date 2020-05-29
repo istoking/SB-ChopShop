@@ -24,9 +24,10 @@ Citizen.CreateThread(function()
         local distCheck =  #(vector3(ChopLocation['x'],ChopLocation['y'],ChopLocation['z']) - playerCoords)
         if distCheck <= 50 then
             sleep = 20
-            if distCheck <= 5 and IsPedInAnyVehicle(ped, false) then
+            if distCheck <= 25 and IsPedInAnyVehicle(ped, false) then
                 sleep = 5
-                DrawText3Ds(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'],'[E] To Chop Vehicle')
+                DrawText3Ds(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'],'[~g~E~s~] To Chop Vehicle')
+                DrawMarker(27, ChopLocation['x'],ChopLocation['y'],ChopLocation['z'] - 0.98, 0, 0, 0, 0, 0, 0, 3.5, 3.5, 3.0, 139, 16, 20, 250, false, false, 2, true, false, false, false)
                 if IsControlJustPressed(2, 86) then
                     local car = GetVehiclePedIsIn(ped, false)
                     local hash = GetEntityModel(car)
@@ -37,7 +38,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(sleep)
     end
 end)
-
 
 RegisterNetEvent('CheckDist')
 AddEventHandler('CheckDist', function(class)
@@ -61,19 +61,17 @@ AddEventHandler('CheckDist', function(class)
 	end
 end)
 
-
 RegisterNetEvent('SB-GetList')
 AddEventHandler('SB-GetList', function()
 	GetChopList(source)
 end)
 
-
 RegisterNetEvent('Delete')
 AddEventHandler( 'Delete', function()
-    local ped = GetPlayerPed( -1 )
-    local vehicle = GetVehiclePedIsIn( ped, false )
-    if IsPedSittingInAnyVehicle( ped ) then 
-        SetEntityAsMissionEntity( vehicle, true, true )
-        deleteCar( vehicle )
+    local ped = GetPlayerPed(-1)
+    local vehicle = GetVehiclePedIsIn(ped, false)
+    if IsPedSittingInAnyVehicle(ped) then 
+        SetEntityAsMissionEntity(vehicle, true, true)
+        deleteCar(vehicle)
     end 
 end)
