@@ -6,6 +6,9 @@
 3. Add "ensure SB-ChopShop" to your server.cfg
 4. Start Server 
 
+# Dependancies 
+mythic_notify - https://github.com/mythicrp/mythic_notify
+
 # Videos 
 
 https://streamable.com/a0rqsi Video Of How It Works.
