@@ -8,6 +8,7 @@
 
 # Dependancies 
 mythic_notify - https://github.com/mythicrp/mythic_notify
+progressBars - https://github.com/EthanPeacock/progressBars
 
 # Videos 
 
