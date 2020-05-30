@@ -1,0 +1,2 @@
+# Add the audio file to interact-sound/client/html/sounds
+# then make sure to add it to the __resource.lua too and restart the server for audio to work.
