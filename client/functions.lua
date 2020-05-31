@@ -52,6 +52,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
+			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -60,16 +62,20 @@ AllowChop = function(hash, source)
 			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
-			if ChoppingInProgress == true then
-				exports['progressBars']:startUI(5000, "Opening Front Left Door")
-				Citizen.Wait(5000)
-				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
+			if frontLeftDoor ~= -1 then
+			    if ChoppingInProgress == true then
+				    exports['progressBars']:startUI(5000, "Opening Front Left Door")
+				    Citizen.Wait(5000)
+					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
+				end
 			end
 			Citizen.Wait(1000)
-			if ChoppingInProgress == true then
-				exports['progressBars']:startUI(5000, "Opening Front Right Door")
-				Citizen.Wait(5000)
-				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
+			if frontRightDoor ~= -1 then
+			    if ChoppingInProgress == true then
+				    exports['progressBars']:startUI(5000, "Opening Front Right Door")
+				    Citizen.Wait(5000)
+					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
+				end
 			end
 			Citizen.Wait(1000)
 			if rearLeftDoor ~= -1 then
@@ -108,6 +114,7 @@ AllowChop = function(hash, source)
 					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
 					exports['progressBars']:startUI(5000, "Removing Front Left Door")
 					Citizen.Wait(5000)
+
 					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 				end
 			end
@@ -117,6 +124,7 @@ AllowChop = function(hash, source)
 					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
 					exports['progressBars']:startUI(5000, "Removing Front Right Door")
 					Citizen.Wait(5000)
+
 					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 				end
 			end
@@ -172,6 +180,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
+			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -292,6 +302,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
+			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -412,6 +424,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
+			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
