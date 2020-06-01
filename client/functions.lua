@@ -109,12 +109,12 @@ AllowChop = function(hash, source)
 					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
 				end
 			end
+			Citizen.Wait(1000)
 			if frontLeftDoor ~= -1 then
 				if ChoppingInProgress == true then
 					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
 					exports['progressBars']:startUI(5000, "Removing Front Left Door")
 					Citizen.Wait(5000)
-
 					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 				end
 			end
@@ -124,7 +124,6 @@ AllowChop = function(hash, source)
 					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
 					exports['progressBars']:startUI(5000, "Removing Front Right Door")
 					Citizen.Wait(5000)
-
 					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 				end
 			end
@@ -434,16 +433,21 @@ AllowChop = function(hash, source)
 			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
-			if ChoppingInProgress == true then
-				exports['progressBars']:startUI(5000, "Opening Front Left Door")
-				Citizen.Wait(5000)
-				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
+			Citizen.Wait(1000)
+			if frontRightDoor ~= -1 then
+     			if ChoppingInProgress == true then
+				    exports['progressBars']:startUI(5000, "Opening Front Left Door")
+				    Citizen.Wait(5000)
+					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
+				end
 			end
 			Citizen.Wait(1000)
-			if ChoppingInProgress == true then
-				exports['progressBars']:startUI(5000, "Opening Front Right Door")
-				Citizen.Wait(5000)
-				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
+			if frontLeftDoor ~= -1 then
+			    if ChoppingInProgress == true then
+				    exports['progressBars']:startUI(5000, "Opening Front Right Door")
+				    Citizen.Wait(5000)
+					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
+				end
 			end
 			Citizen.Wait(1000)
 			if rearLeftDoor ~= -1 then
@@ -541,19 +545,4 @@ AllowChop = function(hash, source)
 			local ChoppingInProgress = false
 		end
 	end
-end
-
-DrawText3Ds = function(x,y,z, text)
-    local onScreen,_x,_y=World3dToScreen2d(x,y,z)
-    local px,py,pz=table.unpack(GetGameplayCamCoords())
-    SetTextScale(0.30, 0.30)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry('STRING')
-    SetTextCentre(1)
-    AddTextComponentString(text)
-    DrawText(_x,_y)
-    local factor = (string.len(text)) / 370
-    DrawRect(_x,_y+0.0125, 0.015+ factor, 0.03, 41, 11, 41, 68)
 end
