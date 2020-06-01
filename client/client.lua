@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
             sleep = 20
             if distCheck <= 25 and IsPedInAnyVehicle(ped, false) then
                 sleep = 5
-                DrawText3Ds(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'],'[~g~E~s~] To Chop Vehicle')
+                Draw3DText(ChopLocation['x'],ChopLocation['y'],ChopLocation['z'],'[~g~E~s~] To Chop Vehicle')
                 DrawMarker(27, ChopLocation['x'],ChopLocation['y'],ChopLocation['z'] - 0.98, 0, 0, 0, 0, 0, 0, 3.0, 3.0, 2.5, 139, 16, 20, 250, false, false, 2, true, false, false, false)
                 if IsControlJustPressed(2, 86) then
                     local car = GetVehiclePedIsIn(ped, false)
