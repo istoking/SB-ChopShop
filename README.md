@@ -22,12 +22,7 @@ https://streamable.com/a0rqsi Video Of How It Works.
 Vehicle list refreshes every 30 minutes to a new list
 Vehicles can be changed in config file
 
-Gives Three Items
-Plastic
-Electronics
-Scrap 
-
-Also Gives Money Based On Class Of Vehicle
+Gives multiple Items per chop, also Gives Money Based On Class Of Vehicle
 
 # Any Issues Or Help 
 
