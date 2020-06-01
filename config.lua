@@ -1,5 +1,20 @@
 Config = {}
+Config.Locale             = 'en'
+Config.NPCEnable          = true -- Set to false to disable NPC Ped at shop location.
+--Config.NPCHash			  = 68070371 --Hash of the npc ped. Change only if you know what you are doing.
+Config.NPCHash            = 1728056212
+Config.NPCShop	          = { x = -55.48, y = 6392.84, z = 31.49, h = 40.22 } -- Location of the shop For the npc.
 
+Config.GiveBlack = true
+
+Config.itemsPrice = {
+    battery = 50,
+    lowradio = 94,
+    highradio = 350,
+    stockrim = 150,
+    highrim = 285,
+    airbag = 125
+}
 
 Config.ChopExtreme = {
 	[1] = 'Adder',    
@@ -32,4 +47,3 @@ Config.ChopLow = {
 	[4] = 'Tailgater',	
 	[5] = 'Dukes',	
 }
-
