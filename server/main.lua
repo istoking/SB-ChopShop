@@ -62,7 +62,7 @@ AddEventHandler('SB-ChopHigh', function()
 		xPlayer.addInventoryItem(sr, math.random(3, 5))
 		payment = math.random(300, 500) 
 		xPlayer.addAccountMoney('black_money', payment)
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'success', text = "You just made $" .. payment .. " dollars from that chop.", length = 5000})
+		TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'success', text = "You just made $" .. payment .. " dollars from that chop.", length = 5000})
 	end
 end)
 
@@ -79,7 +79,7 @@ AddEventHandler('SB-ChopExtreme', function()
 		xPlayer.addInventoryItem(sr, math.random(4, 6))
 		payment = math.random(400, 600) 
 		xPlayer.addAccountMoney('black_money', payment)
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'success', text = "You just made $" .. payment .. " dollars from that chop.", length = 5000})
+		TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'success', text = "You just made $" .. payment .. " dollars from that chop.", length = 5000})
 	end
 end)
 
