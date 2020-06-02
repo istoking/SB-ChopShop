@@ -18,30 +18,30 @@ local multipler = 5
 
 GetChopList = function(source)
 	if ChopRandom == 1 then
-		TriggerEvent('chat:addMessage', {
-		template = '<div class="chat-message system">^*Available Chop List:^r  {0}  |  {1}  |  {2}  |  {3}  |  {4}</div>',
-		args = { Config.ChopLow[1], Config.ChopLow[2], Config.ChopLow[3], Config.ChopLow[4], Config.ChopLow[5], }
-		});
+        serverId = GetPlayerServerId(PlayerId())
+        ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopLow[1].. ' | ' ..Config.ChopLow[2].. ' | ' ..Config.ChopLow[3].. ' | ' ..Config.ChopLow[4].. ' | ' ..Config.ChopLow[5].. '. We will only need these cars for a limited time so hurry up!'  
+            TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
+        end)
 	elseif ChopRandom == 2 then
-		TriggerEvent('chat:addMessage', {
-		template = '<div class="chat-message system">^*Available Chop List:^r  {0}  |  {1}  |  {2}  |  {3}  |  {4}</div>',
-		args = { Config.ChopMed[1], Config.ChopMed[2], Config.ChopMed[3], Config.ChopMed[4], Config.ChopMed[5], }
-		});
+        serverId = GetPlayerServerId(PlayerId())
+        ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopMed[1].. ' | ' ..Config.ChopMed[2].. ' | ' ..Config.ChopMed[3].. ' | ' ..Config.ChopMed[4].. ' | ' ..Config.ChopMed[5].. '. We will only need these cars for a limited time so hurry up!'  
+            TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
+        end)
 	elseif ChopRandom == 3 then
-		TriggerEvent('chat:addMessage', {
-		template = '<div class="chat-message system">^*Available Chop List:^r  {0}  |  {1}  |  {2}  |  {3}  |  {4}</div>',
-		args = { Config.ChopHigh[1], Config.ChopHigh[2], Config.ChopHigh[3], Config.ChopHigh[4], Config.ChopHigh[5], }
-		});
+        serverId = GetPlayerServerId(PlayerId())
+        ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopHigh[1].. ' | ' ..Config.ChopHigh[2].. ' | ' ..Config.ChopHigh[3].. ' | ' ..Config.ChopHigh[4].. ' | ' ..Config.ChopHigh[5].. '. We will only need these cars for a limited time so hurry up!'  
+            TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
+        end)
 	elseif ChopRandom == 4 then
-		TriggerEvent('chat:addMessage', {
-		template = '<div class="chat-message system">^*Available Chop List:^r  {0}  |  {1}  |  {2}  |  {3}  |  {4}</div>',
-		args = { Config.ChopExtreme[1], Config.ChopExtreme[2], Config.ChopExtreme[3], Config.ChopExtreme[4], Config.ChopExtreme[5], }
-		});
+        serverId = GetPlayerServerId(PlayerId())
+        ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopExtreme[1].. ' | ' ..Config.ChopExtreme[2].. ' | ' ..Config.ChopExtreme[3].. ' | ' ..Config.ChopExtreme[4].. ' | ' ..Config.ChopExtreme[5].. '. We will only need these cars for a limited time so hurry up!'  
+            TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
+        end)
 	end
-end
-
-deleteCar = function( entity )
-    Citizen.InvokeNative( 0xEA386986E786A54F, Citizen.PointerValueIntInitialized( entity ) )
 end
 
 AllowChop = function(hash, source)
@@ -52,8 +52,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
-			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -62,106 +62,82 @@ AllowChop = function(hash, source)
 			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
-			if frontLeftDoor ~= -1 then
-			    if ChoppingInProgress == true then
-				    exports['progressBars']:startUI(5000, "Opening Front Left Door")
-				    Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
 			end
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-			    if ChoppingInProgress == true then
-				    exports['progressBars']:startUI(5000, "Opening Front Right Door")
-				    Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
-				end
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
 			end
 			Citizen.Wait(1000)
-			if frontLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 			end
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
-				end    
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
 			end
 			Citizen.Wait(1000)
 			exports['progressBars']:startUI(5000, "Vehicle will now go to the CRUSHER!")
@@ -179,8 +155,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
-			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -189,101 +165,81 @@ AllowChop = function(hash, source)
 			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
-			if ChoppingInProgress == true then
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
 				exports['progressBars']:startUI(5000, "Opening Front Left Door")
 				Citizen.Wait(5000)
 				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
 			end
 			Citizen.Wait(1000)
-			if ChoppingInProgress == true then
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
 				exports['progressBars']:startUI(5000, "Opening Front Right Door")
 				Citizen.Wait(5000)
 				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
-				end
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
 			end
-			if frontLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 			end
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
-				end    
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)   
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
 			end
 			Citizen.Wait(1000)
 			exports['progressBars']:startUI(5000, "Vehicle will now go to the CRUSHER!")
@@ -301,8 +257,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
-			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -311,101 +267,81 @@ AllowChop = function(hash, source)
 			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
-			if ChoppingInProgress == true then
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
 				exports['progressBars']:startUI(5000, "Opening Front Left Door")
 				Citizen.Wait(5000)
 				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
 			end
 			Citizen.Wait(1000)
-			if ChoppingInProgress == true then
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
 				exports['progressBars']:startUI(5000, "Opening Front Right Door")
 				Citizen.Wait(5000)
 				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
-				end
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
 			end
-			if frontLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 			end
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
-				end    
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
 			end
 			Citizen.Wait(1000)
 			exports['progressBars']:startUI(5000, "Vehicle will now go to the CRUSHER!")
@@ -423,8 +359,8 @@ AllowChop = function(hash, source)
 			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
-			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
+			local frontRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_f')
 			local rearLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_r')
 			local rearRightDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_pside_r')
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
@@ -434,105 +370,81 @@ AllowChop = function(hash, source)
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-     			if ChoppingInProgress == true then
-				    exports['progressBars']:startUI(5000, "Opening Front Left Door")
-				    Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
 			end
 			Citizen.Wait(1000)
-			if frontLeftDoor ~= -1 then
-			    if ChoppingInProgress == true then
-				    exports['progressBars']:startUI(5000, "Opening Front Right Door")
-				    Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
-				end
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					exports['progressBars']:startUI(5000, "Opening Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				exports['progressBars']:startUI(5000, "Opening Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
 			end
-			if frontLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
-				end
+			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
 			end
 			Citizen.Wait(1000)
-			if frontRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Front Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
-				end
+			if frontRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Front Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
 			end
 			Citizen.Wait(1000)
-			if rearLeftDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Left Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
-				end
+			if rearLeftDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Left Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
 			end
 			Citizen.Wait(1000)
-			if rearRightDoor ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Rear Right Door")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
-				end
+			if rearRightDoor ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Rear Right Door")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
 			end
 			Citizen.Wait(1000)
-			if bonnet ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Hood")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
-				end    
+			if bonnet ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Hood")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
 			end
 			Citizen.Wait(1000)
-			if boot ~= -1 then
-				if ChoppingInProgress == true then
-					TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
-					exports['progressBars']:startUI(5000, "Removing Trunk")
-					Citizen.Wait(5000)
-					SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
-				end
+			if boot ~= -1 and ChoppingInProgress == true then
+				TriggerServerEvent("InteractSound_SV:PlayOnSource", "impactdrill", 0.3)
+				exports['progressBars']:startUI(5000, "Removing Trunk")
+				Citizen.Wait(5000)
+				SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
 			end
 			Citizen.Wait(1000)
 			exports['progressBars']:startUI(5000, "Vehicle will now go to the CRUSHER!")
