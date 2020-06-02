@@ -73,9 +73,8 @@ RegisterNetEvent('Delete')
 AddEventHandler( 'Delete', function()
     local ped = GetPlayerPed(-1)
     local vehicle = GetVehiclePedIsIn(ped, false)
-    if IsPedSittingInAnyVehicle(ped) then 
-        SetEntityAsMissionEntity(vehicle, true, true)
-        deleteCar(vehicle)
+    if IsPedSittingInAnyVehicle(ped) then
+        ESX.Game.DeleteVehicle(vehicle)
     end 
 end)
 
@@ -132,6 +131,7 @@ function OpenShop()
                 name = v.name,
                 price = price,
 
+                -- menu properties
                 type = 'slider',
                 value = 1,
                 min = 1,
@@ -166,6 +166,7 @@ Citizen.CreateThread(function()
         while not HasModelLoaded(Config.NPCHash) do
             Wait(1)
         end
+        --PROVIDER
         parts_dealer = CreatePed(1, Config.NPCHash, Config.NPCShop.x, Config.NPCShop.y, Config.NPCShop.z-1, Config.NPCShop.h, false, true)
         SetBlockingOfNonTemporaryEvents(parts_dealer, true)
         SetPedDiesWhenInjured(parts_dealer, false)
