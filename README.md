@@ -26,11 +26,17 @@ Vehicle list refreshes every 30 minutes to a new list.
 Vehicles can be changed in config file
 
 Gives following Items:
+
 airbag
+
 battery
+
 highradio
+
 highrim
+
 lowradio
+
 stockrim
 
 Also Gives Money Based On Class Of Vehicle
