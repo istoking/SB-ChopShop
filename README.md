@@ -22,7 +22,9 @@ https://streamable.com/a0rqsi Video Of How It Works.
 # Usage In Game
 
 /choplist to get the vehicles list sent to your phone.
+
 Vehicle list refreshes every 30 minutes to a new list.
+
 Vehicles can be changed in config file
 
 Gives following Items:
