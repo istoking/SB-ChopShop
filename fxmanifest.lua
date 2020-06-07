@@ -3,17 +3,23 @@ fx_version 'adamant'
 game 'gta5'
 
 client_scripts {
-	'client/client.lua',
-	'client/functions.lua',
-	'config.lua',
+   '@es_extended/locale.lua',
+   'locales/en.lua',
+   'client/client.lua',
+   'client/functions.lua',
+   'config.lua',
 }
 
 server_scripts {
-	'server/main.lua',
-	'config.lua',
+   '@es_extended/locale.lua',
+   'locales/en.lua',
+   'server/main.lua',
+   'config.lua',
 }
 
 dependencies {
-	'progressBars',
-	'mythic_notify'
+   'disc-base',
+   'disc-gcphone',
+   'mythic_notify',
+   'progressBars',
 }
