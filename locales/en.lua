@@ -1,0 +1,17 @@
+Locales ['en'] = {
+  ['press_to_chop'] = "Press [E] to Chop the vehicle",
+  ['map_blip'] = "Chop Shop",
+  ['map_blip_shop'] = "Stanley's Car Parts",
+  ['no_vehicle'] = "Must be in a vehicle to chop.",
+  ['open_shop'] = "Press [E] to access the store.",
+  ['sold'] = "you\'ve sold %sx %s for $%s",
+  ['not_enough'] = 'you don\'t have enough of that to sell!',
+  ['shop_prompt'] = 'press [E] to talk with Stanley.',
+  ['item'] = '$%s',
+  ['shop_title'] = 'Stanley\'s Car Parts',
+  ['cooldown'] = 'You have to wait %s secondes before you can chop another vehicle.',
+  ['call'] = 'Someone is Chopping a vehicle.',
+  ['911'] = '911 Call',
+  ['chop'] = 'Car Chopping',
+  ['not_enough_cops'] = 'Not enough cops in service',
+}
