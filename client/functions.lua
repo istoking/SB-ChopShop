@@ -15,30 +15,33 @@ end)
 
 local multipler = 5
 
-
 GetChopList = function(source)
 	if ChopRandom == 1 then
-        serverId = GetPlayerServerId(PlayerId())
+		serverId = GetPlayerServerId(PlayerId())
+		local class = 1
         ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
-            message = 'Bring us any of these Vehicles: ' ..Config.ChopLow[1].. ' | ' ..Config.ChopLow[2].. ' | ' ..Config.ChopLow[3].. ' | ' ..Config.ChopLow[4].. ' | ' ..Config.ChopLow[5].. '. We will only need these cars for a limited time so hurry up!'  
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopLow[1].. ' | ' ..Config.ChopLow[2].. ' | ' ..Config.ChopLow[3].. ' | ' ..Config.ChopLow[4].. ' | ' ..Config.ChopLow[5].. '.'
             TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
         end)
 	elseif ChopRandom == 2 then
+		local class = 2
         serverId = GetPlayerServerId(PlayerId())
         ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
-            message = 'Bring us any of these Vehicles: ' ..Config.ChopMed[1].. ' | ' ..Config.ChopMed[2].. ' | ' ..Config.ChopMed[3].. ' | ' ..Config.ChopMed[4].. ' | ' ..Config.ChopMed[5].. '. We will only need these cars for a limited time so hurry up!'  
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopMed[1].. ' | ' ..Config.ChopMed[2].. ' | ' ..Config.ChopMed[3].. ' | ' ..Config.ChopMed[4].. ' | ' ..Config.ChopMed[5].. '.'
             TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
         end)
 	elseif ChopRandom == 3 then
+		local class = 3
         serverId = GetPlayerServerId(PlayerId())
         ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
-            message = 'Bring us any of these Vehicles: ' ..Config.ChopHigh[1].. ' | ' ..Config.ChopHigh[2].. ' | ' ..Config.ChopHigh[3].. ' | ' ..Config.ChopHigh[4].. ' | ' ..Config.ChopHigh[5].. '. We will only need these cars for a limited time so hurry up!'  
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopHigh[1].. ' | ' ..Config.ChopHigh[2].. ' | ' ..Config.ChopHigh[3].. ' | ' ..Config.ChopHigh[4].. ' | ' ..Config.ChopHigh[5].. '.'
             TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
         end)
 	elseif ChopRandom == 4 then
+		local class = 4
         serverId = GetPlayerServerId(PlayerId())
         ESX.TriggerServerCallback('disc-gcphone:getNumber', function(number)
-            message = 'Bring us any of these Vehicles: ' ..Config.ChopExtreme[1].. ' | ' ..Config.ChopExtreme[2].. ' | ' ..Config.ChopExtreme[3].. ' | ' ..Config.ChopExtreme[4].. ' | ' ..Config.ChopExtreme[5].. '. We will only need these cars for a limited time so hurry up!'  
+            message = 'Bring us any of these Vehicles: ' ..Config.ChopExtreme[1].. ' | ' ..Config.ChopExtreme[2].. ' | ' ..Config.ChopExtreme[3].. ' | ' ..Config.ChopExtreme[4].. ' | ' ..Config.ChopExtreme[5].. '.'
             TriggerServerEvent('disc-gcphone:sendMessageFrom', 'Chop Guy', number, message, serverId)
         end)
 	end
@@ -49,7 +52,6 @@ AllowChop = function(hash, source)
 	if ChopRandom == 1 then
 		if hash == GetHashKey(Config.ChopLow[1]) or hash == GetHashKey(Config.ChopLow[2]) or hash == GetHashKey(Config.ChopLow[3]) or hash == GetHashKey(Config.ChopLow[4]) or hash == GetHashKey(Config.ChopLow[5]) then
 			local class = 1
-			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
@@ -59,7 +61,7 @@ AllowChop = function(hash, source)
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
 			local boot = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'boot')
 			local ChoppingInProgress = true
-			SetVehicleNumberPlateText(vehicle, "stolen")
+--			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
 			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
@@ -145,14 +147,13 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', class)
+				TriggerEvent('CheckDist', vehicle, class)
 			end
 			local ChoppingInProgress = false
 		end
 	elseif ChopRandom == 2 then
 		if hash == GetHashKey(Config.ChopMed[1]) or hash == GetHashKey(Config.ChopMed[2]) or hash == GetHashKey(Config.ChopMed[3]) or hash == GetHashKey(Config.ChopMed[4]) or hash == GetHashKey(Config.ChopMed[5]) then
 			local class = 2
-			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
@@ -162,7 +163,7 @@ AllowChop = function(hash, source)
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
 			local boot = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'boot')
 			local ChoppingInProgress = true
-			SetVehicleNumberPlateText(vehicle, "stolen")
+--			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
 			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
@@ -247,14 +248,13 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', class)
+				TriggerEvent('CheckDist', vehicle, class)
 			end
 			local ChoppingInProgress = false
 		end
 	elseif ChopRandom == 3 then
 		if hash == GetHashKey(Config.ChopHigh[1]) or hash == GetHashKey(Config.ChopHigh[2]) or hash == GetHashKey(Config.ChopHigh[3]) or hash == GetHashKey(Config.ChopHigh[4]) or hash == GetHashKey(Config.ChopHigh[5]) then
 			local class = 3
-			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
@@ -264,7 +264,7 @@ AllowChop = function(hash, source)
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
 			local boot = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'boot')
 			local ChoppingInProgress = true
-			SetVehicleNumberPlateText(vehicle, "stolen")
+--			SetVehicleNumberPlateText(vehicle, "stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
 			if frontLeftDoor ~= -1 and ChoppingInProgress == true then
@@ -349,14 +349,13 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', class)
+				TriggerEvent('CheckDist', vehicle, class)
 			end
 			local ChoppingInProgress = false
 		end
 	elseif ChopRandom == 4 then
 		if hash == GetHashKey(Config.ChopExtreme[1]) or hash == GetHashKey(Config.ChopExtreme[2]) or hash == GetHashKey(Config.ChopExtreme[3]) or hash == GetHashKey(Config.ChopExtreme[4]) or hash == GetHashKey(Config.ChopExtreme[5]) then
 			local class = 4
-			local timer = class * 1000 * multipler
 			local ped = PlayerPedId()
 			local vehicle = GetVehiclePedIsIn( ped, false )
 			local frontLeftDoor = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'door_dside_f')
@@ -366,7 +365,7 @@ AllowChop = function(hash, source)
 			local bonnet = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'bonnet')
 			local boot = GetEntityBoneIndexByName(GetVehiclePedIsIn(GetPlayerPed(-1), false), 'boot')
 			local ChoppingInProgress = true
-			SetVehicleNumberPlateText(vehicle, "stolen")
+--			SetVehicleNumberPlateText(vehicle, "Stolen")
 			SetVehicleEngineOn(vehicle, false, false, true)
 			SetVehicleUndriveable(vehicle, false)
 			Citizen.Wait(1000)
@@ -452,7 +451,7 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', class)
+				TriggerEvent('CheckDist', vehicle, class)
 			end
 			local ChoppingInProgress = false
 		end
