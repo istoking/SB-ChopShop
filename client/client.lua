@@ -40,8 +40,8 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterNetEvent('CheckDist')
-AddEventHandler('CheckDist', function(vehicle, class)
+RegisterNetEvent('check:chop')
+AddEventHandler('check:chop', function(vehicle, class)
 	local ChopLocation = vector3(2343.53, 3052.26, 48.15)
 	local playerCoords = GetEntityCoords(PlayerPedId())
 	local dist = #(vector3(ChopLocation['x'],ChopLocation['y'],ChopLocation['z']) - playerCoords)
