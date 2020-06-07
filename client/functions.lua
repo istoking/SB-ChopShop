@@ -147,7 +147,7 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', vehicle, class)
+				TriggerEvent('check:chop', vehicle)
 			end
 			local ChoppingInProgress = false
 		end
@@ -248,7 +248,7 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', vehicle, class)
+				TriggerEvent('check:chop', vehicle)
 			end
 			local ChoppingInProgress = false
 		end
@@ -349,7 +349,7 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', vehicle, class)
+				TriggerEvent('check:chop', vehicle)
 			end
 			local ChoppingInProgress = false
 		end
@@ -451,7 +451,7 @@ AllowChop = function(hash, source)
 			if ChoppingInProgress == true then
 				DeleteVehicle()
 				exports['mythic_notify']:SendAlert('success', 'Vehicle Chopped Successfully...', 5000)
-				TriggerEvent('CheckDist', vehicle, class)
+				TriggerEvent('check:chop', vehicle)
 			end
 			local ChoppingInProgress = false
 		end
