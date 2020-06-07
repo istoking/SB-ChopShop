@@ -41,39 +41,40 @@ end)
 
 
 RegisterNetEvent('CheckDist')
-AddEventHandler('CheckDist', function(class)
+AddEventHandler('CheckDist', function(vehicle, class)
 	local ChopLocation = vector3(2343.53, 3052.26, 48.15)
 	local playerCoords = GetEntityCoords(PlayerPedId())
 	local dist = #(vector3(ChopLocation['x'],ChopLocation['y'],ChopLocation['z']) - playerCoords)
 	if dist < 2 then
 		if class == 1 then 
 			TriggerServerEvent('SB-ChopLow', source)
-			TriggerEvent('Delete')
+			TriggerEvent('delete:vehicle', vehicle)
 		elseif class == 2 then
 			TriggerServerEvent('SB-ChopMed', source)
-			TriggerEvent('Delete')
+			TriggerEvent('delete:vehicle', vehicle)
 		elseif class  == 3 then
 			TriggerServerEvent('SB-ChopHigh', source)
-			TriggerEvent('Delete')
+			TriggerEvent('delete:vehicle', vehicle)
 		elseif class == 4 then 
 			TriggerServerEvent('SB-ChopExtreme', source)
-			TriggerEvent('Delete')
+			TriggerEvent('delete:vehicle', vehicle)
 		end
 	end
 end)
-
 
 RegisterNetEvent('SB-GetList')
 AddEventHandler('SB-GetList', function()
 	GetChopList(source)
 end)
 
+Citizen.CreateThread(function()
+    TriggerEvent('chat:addSuggestion', '/choplist', "Cars for Chop sent to phone")
+end)
 
-RegisterNetEvent('Delete')
-AddEventHandler( 'Delete', function()
+RegisterNetEvent('delete:vehicle')
+AddEventHandler( 'delete:vehicle', function(vehicle)
     local ped = GetPlayerPed(-1)
-    local vehicle = GetVehiclePedIsIn(ped, false)
-    if IsPedSittingInAnyVehicle(ped) then
+    if IsPedSittingInAnyVehicle(ped) then 
         ESX.Game.DeleteVehicle(vehicle)
     end 
 end)
